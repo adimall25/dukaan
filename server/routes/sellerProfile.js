@@ -53,4 +53,20 @@ router.post("/create", sellerExtract, async (req, res) => {
 })
 
 
+//route : GET /api/profile/seller/all
+// gets the list profiles of all sellers
+router.get("/all", async  (req, res) => {
+    try
+    {
+        const sellerProfileList = await SellerProfile.find({});
+        console.log("Fetched all the profiles");
+        res.json(sellerProfileList);
+    }
+    catch(err)
+    {
+        console.log(err);
+        res.status(505).json({msg : "Server Error"});
+    }
+})
+
 module.exports = router;
