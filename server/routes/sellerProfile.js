@@ -58,9 +58,43 @@ router.post("/create", sellerExtract, async (req, res) => {
 router.get("/all", async  (req, res) => {
     try
     {
+        //find all seller profiles
         const sellerProfileList = await SellerProfile.find({});
+
         console.log("Fetched all the profiles");
+
+        //send list to client
         res.json(sellerProfileList);
+    }
+    catch(err)
+    {
+        console.log(err);
+        res.status(505).json({msg : "Server Error"});
+    }
+})
+
+
+//route : GET /api/profile/seller/:seller_id
+// gets seller profile according to seller_id
+router.get("/seller_id/:seller_id", async (req, res) => {
+    try
+    {
+        //get seller_id
+        const seller_id = req.params.seller_id;
+
+        //find seller
+        const sellerProfile = await SellerProfile.findOne({seller : seller_id});
+
+        if(!sellerProfile)  //if no such seller exists
+        {
+            console.log("No seller profile found for given seller");
+            res.status(404).json({msg : "No seller profile found for given seller"});
+        }
+        else
+        {
+            console.log("Seller Profile found")
+            res.json(sellerProfile);
+        }
     }
     catch(err)
     {
