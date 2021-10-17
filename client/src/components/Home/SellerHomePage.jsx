@@ -1,11 +1,7 @@
-import React from 'react'
-
-const SellerHomePage = () => {
-    return (
-        <div>
-            Seller Home Page
-        </div>
-    )
+import * as React from 'react';
+import Sidebar from '../Sidebar';
+function SellerHomePage() {
+  return <Sidebar />;
 }
 
-export default SellerHomePage
+export default SellerHomePage;
