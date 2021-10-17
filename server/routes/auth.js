@@ -40,7 +40,7 @@ router.post("/seller/signin", gTokenVerifier, async (req, res) => {
         console.log("JWT generated");
 
         //send token to client
-        res.json(token);
+        res.json({token});
     }
     catch(err)
     {
@@ -81,7 +81,7 @@ router.post("/buyer/signin", gTokenVerifier, async (req, res) => {
         console.log("JWT generated");
 
         //send token to client
-        res.json(token);
+        res.json({token});
     }
     catch(err)
     {

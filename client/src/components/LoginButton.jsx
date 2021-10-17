@@ -1,8 +1,12 @@
 import React, {Fragment} from "react";
 import {GoogleLogin} from 'react-google-login';   //for google login button component
 import axios from 'axios';
+import { useHistory } from "react-router";
+import SellerHomePage from "./Home/SellerHomePage";
+import setCookie from "../utils/cookies/setCookie";
 
 function LoginButton({type, buttonText}) {
+  let history = useHistory();
     //function called if google authentication is successful
   async function onSuccess(res)
   {
@@ -14,11 +18,21 @@ function LoginButton({type, buttonText}) {
     {
       const response = await axios.post("http://localhost:5000/api/auth/seller/signin", payload);
       console.log(response);
+      if(response.status === 200)
+      {
+        setCookie("seller-token", response.data.token);
+        history.push("/seller/home")
+      }
     }
     else if(type === "buyer")
     {
       const response = await axios.post("http://localhost:5000/api/auth/buyer/signin", payload);
       console.log(response);
+      if(response.status === 200)
+      {
+        setCookie("buyer-token", response.data.token);
+        history.push("/buyer/home")
+      }
     }
     else
     {
