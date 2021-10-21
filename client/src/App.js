@@ -7,7 +7,7 @@ import SellerProfile from './components/Profiles/SellerProfile';
 import Profiles from './components/Profiles/Profiles';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Products from './components/Products';
+import Products from './components/Buyer/Products';
 
 function App() {
   return (

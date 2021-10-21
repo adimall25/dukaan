@@ -1,7 +1,31 @@
 import React from 'react';
 import '../../css/BuyerProfile.css';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { useState } from 'react';
+import { createBuyerProfile } from '../../service/api';
 function BuyerProfile() {
+  const history = useHistory();
+  const buyer = {
+    name: '',
+    rollNumber: '',
+    hostelNumber: '',
+    flatNumber: '',
+    contactNumber: '',
+  };
+  const onSubmit = async () => {
+    const response = await createBuyerProfile(buyerProfile);
+    console.log(response);
+    if (response.status === 200) {
+      console.log(response.data.buyerProfile);
+      history.push('/buyer/home');
+    }
+  };
+  const onHandleChange = (e) => {
+    setbuyerProfile({ ...buyerProfile, [e.target.name]: e.target.value });
+    // console.log(buyerProfile);
+  };
+  const [buyerProfile, setbuyerProfile] = useState(buyer);
+
   return (
     <div>
       <div className="container rounded bg-white mt-5 mb-5">
@@ -27,7 +51,8 @@ function BuyerProfile() {
                 <div className="col-md-12">
                   <label className="labels">Name</label>
                   <input
-                    required="true"
+                    onChange={(e) => onHandleChange(e)}
+                    name="name"
                     type="text"
                     className="form-control"
                     placeholder="Enter your name"
@@ -38,7 +63,8 @@ function BuyerProfile() {
                 <div className="col-md-12">
                   <label className="labels">Roll Number</label>
                   <input
-                    required="true"
+                    onChange={(e) => onHandleChange(e)}
+                    name="rollNumber"
                     type="text"
                     className="form-control"
                     placeholder="Enter Roll Number"
@@ -49,7 +75,8 @@ function BuyerProfile() {
                 <div className="col-md-12">
                   <label className="labels">Hostel Number </label>
                   <input
-                    required="true"
+                    onChange={(e) => onHandleChange(e)}
+                    name="hostelNumber"
                     type="text"
                     className="form-control"
                     placeholder="Enter Hostel Number"
@@ -61,7 +88,8 @@ function BuyerProfile() {
                 <div className="col-md-12">
                   <label className="labels">Flat Number</label>
                   <input
-                    required="true"
+                    onChange={(e) => onHandleChange(e)}
+                    name="flatNumber"
                     type="text"
                     className="form-control"
                     placeholder="Enter Flat Number"
@@ -72,7 +100,8 @@ function BuyerProfile() {
                 <div className="col-md-12">
                   <label className="labels">Contact Number</label>
                   <input
-                    required="true"
+                    onChange={(e) => onHandleChange(e)}
+                    name="contactNumber"
                     type="text"
                     className="form-control"
                     placeholder="Enter Contact Number"
@@ -81,13 +110,10 @@ function BuyerProfile() {
               </div>
               <div className="row mt-3">
                 <div className="col-md-12">
-                  <button className=" btn btn-primary">
-                    <Link
-                      style={{ textDecoration: 'none', color: 'white' }}
-                      to="/buyer/home">
-                      {' '}
-                      Submit
-                    </Link>
+                  <button
+                    className=" btn btn-primary"
+                    onClick={(e) => onSubmit()}>
+                    Submit
                   </button>
                 </div>
               </div>

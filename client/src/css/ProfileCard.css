@@ -9,23 +9,14 @@
 	box-shadow: 0px 10px 30px hsl(185, 75%, 35%);
 }
 
-header {
-	/* background-image: url("../images/bg-pattern-card.svg"); */
-	background-position: 0px 0px;
-	background-repeat: no-repeat;
-	background-size: contain;
-	text-align: center;
-	border-top-left-radius: 14px;
-	border-top-right-radius: 14px;
-}
 
-img {
+.shopImage{
 	margin: auto;
 	width: 300px;
 	border: solid white 4px;
 	border-radius: 60%;
 	margin-top: 75px;
-}
+} 
 
 .bold-text {
 	font-weight: bold;

@@ -1,7 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import '../../css/BuyerProfile.css';
 import { Link } from 'react-router-dom';
+import { createSellerProfile } from '../../service/api';
 function SellerProfile() {
+  const history = useHistory();
+  const seller = {
+    name: '',
+    shopName: '',
+    shopAddress: '',
+    contactNumber: '',
+  };
+
+  const onHandleChange = (e) => {
+    setSellerProfile({ ...sellerProfile, [e.target.name]: e.target.value });
+  };
+
+  const onSubmit = async () => {
+    const response = await createSellerProfile(sellerProfile);
+    if (response.status === 200) {
+      console.log(response.data.sellerProfile);
+      history.push('/seller/home');
+    }
+  };
+
+  const [sellerProfile, setSellerProfile] = useState(seller);
   return (
     <div>
       <div className="container rounded bg-white mt-5 mb-5">
@@ -27,7 +50,10 @@ function SellerProfile() {
                 <div className="col-md-12">
                   <label className="labels">Name</label>
                   <input
+                    onChange={(e) => onHandleChange(e)}
                     type="text"
+                    value={sellerProfile.name}
+                    name="name"
                     className="form-control"
                     placeholder="Enter your name"
                   />
@@ -37,7 +63,10 @@ function SellerProfile() {
                 <div className="col-md-12">
                   <label className="labels">Shop Name</label>
                   <input
+                    onChange={(e) => onHandleChange(e)}
                     type="text"
+                    name="shopName"
+                    value={sellerProfile.shopName}
                     className="form-control"
                     placeholder="Enter Shop Name"
                   />
@@ -47,7 +76,10 @@ function SellerProfile() {
                 <div className="col-md-12">
                   <label className="labels">Shop Address </label>
                   <input
+                    onChange={(e) => onHandleChange(e)}
                     type="text"
+                    name="shopAddress"
+                    value={sellerProfile.shopAddress}
                     className="form-control"
                     placeholder="Enter shop address"
                   />
@@ -58,7 +90,10 @@ function SellerProfile() {
                 <div className="col-md-12">
                   <label className="labels">Contact Number</label>
                   <input
+                    onChange={(e) => onHandleChange(e)}
                     type="text"
+                    name="contactNumber"
+                    value={sellerProfile.contactNumber}
                     className="form-control"
                     placeholder="Enter Contact Number"
                   />
@@ -66,13 +101,8 @@ function SellerProfile() {
               </div>
               <div className="row mt-3">
                 <div className="col-md-12">
-                  <button className=" btn btn-primary">
-                    <Link
-                      style={{ textDecoration: 'none', color: 'white' }}
-                      to="/seller/home">
-                      {' '}
-                      Submit
-                    </Link>
+                  <button className=" btn btn-primary" onClick={onSubmit}>
+                    Submit
                   </button>
                 </div>
               </div>
