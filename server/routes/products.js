@@ -38,7 +38,7 @@ router.post('/add', sellerExtract, async (req, res) => {
         sellerProfile.products.push(product.id);
         await sellerProfile.save();
         console.log('Product added to seller profile');
-        res.json(product);
+        res.json({product});
       }
     }
   } catch (err) {
@@ -61,7 +61,7 @@ router.delete(
       sellerProfile.products.filter((el) => el != product_id);
       await sellerProfile.save();
       console.log('Product deleted from seller profile');
-      res.json(sellerProfile);
+      res.json({sellerProfile});
     } catch (err) {
       console.log(err);
       res.status(505).json({ msg: 'Server Error' });
@@ -73,18 +73,19 @@ router.get('/all', async (req, res) => {
   try {
     const allProducts = await Product.find({});
     console.log('All products fetched');
-    res.json(allProducts);
+    res.json({allProducts});
   } catch (err) {
     console.log(err);
     res.status(505).json({ msg: 'Server Error' });
   }
 });
+
 router.get('/seller/:seller_id', async (req, res) => {
   try {
     let seller_id = req.params.seller_id;
     const sellerProducts = await Product.find({ seller: seller_id });
     console.log('All products fetched of that seller');
-    res.json(sellerProducts);
+    res.json({sellerProducts});
   } catch (err) {
     console.log(err);
     res.status(505).json({ msg: 'Server Error' });
@@ -95,7 +96,7 @@ router.get('/me', sellerExtract, async (req, res) => {
     let seller = req.body.seller;
     const sellerProducts = await Product.find({ seller: seller.id });
     console.log('All products fetched of logged in  seller');
-    res.json(sellerProducts);
+    res.json({sellerProducts});
   } catch (err) {
     console.log(err);
     res.status(505).json({ msg: 'Server Error' });
@@ -109,7 +110,7 @@ router.get('/product/:product_id', async (req, res) => {
     console.log(product_id);
     console.log(product);
     console.log('Product Details Fetched');
-    res.json(product);
+    res.json({product});
   } catch (err) {
     console.log(err);
     res.status(505).json({ msg: 'Server Error' });

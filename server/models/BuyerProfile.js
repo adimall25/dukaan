@@ -29,7 +29,14 @@ const buyerProfileSchema = mongoose.Schema({
     contactNumber : {
         type : String,
         required : true
-    }
+    },
+
+    orders : [
+        {
+            type : mongoose.Schema.Types.ObjectId,
+            ref : "Order"
+        }
+    ]
 })
 
 //create model using above schema

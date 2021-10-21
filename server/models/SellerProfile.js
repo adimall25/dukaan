@@ -23,6 +23,13 @@ const sellerProfileSchema = new mongoose.Schema(
             type : String,
             required : true
         },
+
+        orders : [
+            {
+                type : mongoose.Schema.Types.ObjectId,
+                ref : 'Order'
+            }
+        ],
         products : {
             type : [
                 {
