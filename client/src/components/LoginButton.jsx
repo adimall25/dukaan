@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { GoogleLogin } from 'react-google-login'; //for google login button component
 import axios from 'axios';
 import { useHistory } from 'react-router';
+import { getLoggedInBuyer, getLoggedInSeller } from '../service/api';
 
 import setCookie from '../utils/cookies/setCookie';
 
@@ -14,24 +15,33 @@ function LoginButton({ type, buttonText }) {
 
     //if seller, then send to this route, else other route
     if (type === 'seller') {
-      const response = await axios.post(
+      let response = await axios.post(
         'http://localhost:5000/api/auth/seller/signin',
         payload
       );
       console.log(response);
       if (response.status === 200) {
         setCookie('seller-token', response.data.token);
-        history.push('/seller/profile');
+        response = await getLoggedInSeller();
+        console.log(response);
+        if (response.data.sellerProfile) {
+          history.push('/seller/home');
+        } else history.push('/seller/profile');
       }
     } else if (type === 'buyer') {
-      const response = await axios.post(
+      let response = await axios.post(
         'http://localhost:5000/api/auth/buyer/signin',
         payload
       );
+
       console.log(response);
       if (response.status === 200) {
         setCookie('buyer-token', response.data.token);
-        history.push('/buyer/profile');
+        response = await getLoggedInBuyer();
+        console.log(response);
+        if (response.data.buyerProfile) {
+          history.push('/buyer/home');
+        } else history.push('/buyer/profile');
       }
     } else {
       console.log('Wrong user type');

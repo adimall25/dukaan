@@ -15,6 +15,13 @@ export const createBuyerProfile = async (buyer) => {
   return response;
 };
 
+export const getLoggedInBuyer = async () => {
+  const response = await axios.get(`${url}/api/profile/buyer/me`, {
+    headers: { 'x-auth-token': getCookie('buyer-token') },
+  });
+  return response;
+};
+
 export const createSellerProfile = async (seller) => {
   const response = await axios.post(
     `${url}/api/profile/seller/create`,
@@ -25,6 +32,13 @@ export const createSellerProfile = async (seller) => {
       headers: { 'x-auth-token': getCookie('seller-token') },
     }
   );
+  return response;
+};
+
+export const getLoggedInSeller = async () => {
+  const response = await axios.get(`${url}/api/profile/seller/me`, {
+    headers: { 'x-auth-token': getCookie('seller-token') },
+  });
   return response;
 };
 

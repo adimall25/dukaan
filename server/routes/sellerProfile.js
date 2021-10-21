@@ -63,7 +63,7 @@ router.get('/me', sellerExtract, async (req, res) => {
 
       //check if sellerProfile  exists
       if (!sellerProfile) {
-        res.status(404).json({ msg: 'Cannot Find the SellerProfile' });
+        res.json({ msg: 'You need to create your profile' });
       } else {
         res.json({ sellerProfile });
       }
