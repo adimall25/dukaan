@@ -1,0 +1,37 @@
+.App {
+    font-family: sans-serif;
+    text-align: center;
+  }
+  #add {
+    background-color: white;
+    padding: 18px;
+    font-weight: bold;
+    color: black;
+    font-family: "Lucida Handwriting", "Lucida Console", "Cursive";
+  }
+  
+  /* .css-cveggr-MuiListItemIcon-root{
+    color:white;
+  } */
+  
+  .css-cveggr-MuiListItemIcon-root {
+    color: #fff !important;
+  }
+  .css-12i7wg6-MuiPaper-root-MuiDrawer-paper {
+    background-color: #19194d !important;
+    color: white !important;
+  }
+  .makeStyles-boxdiv-45 {
+    background-color: white !important;
+  }
+  .btn {
+    margin: auto;
+    margin-bottom: 1%;
+  }
+  .MuiAppBar-colorPrimary {
+    background-color: #19194d !important;
+  }
+  .form-label {
+    color: white;
+  }
+  
