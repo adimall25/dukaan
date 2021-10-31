@@ -24,6 +24,9 @@ app.use('/api/profile/buyer', require('./routes/buyerProfile'));
 
 //APIs related to Products
 app.use('/api/products', require('./routes/products'));
+
+//APIs related to Orders
+app.use('/api/orders', require('./routes/orders'));
 //start listening
 app.listen(5000, () => {
   console.log('Server started listening on port 3000');
