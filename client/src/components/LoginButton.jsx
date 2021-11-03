@@ -3,53 +3,38 @@ import { GoogleLogin } from 'react-google-login'; //for google login button comp
 import axios from 'axios';
 import { useHistory } from 'react-router';
 import { getLoggedInBuyer, getLoggedInSeller } from '../service/api';
+import {Link, Redirect} from "react-router-dom";
+import {connect} from "react-redux";
+import { loginBuyer, loginSeller } from '../actions/auth';
 
-import setCookie from '../utils/cookies/setCookie';
 
-function LoginButton({ type, buttonText }) {
+function LoginButton({ type, buttonText, loginBuyer, loginSeller }) 
+{
   let history = useHistory();
+
   //function called if google authentication is successful
-  async function onSuccess(res) {
-    //set payload to send to server
-    const payload = { tokenId: res.tokenId };
-
+  async function onSuccess(res) 
+  {
     //if seller, then send to this route, else other route
-    if (type === 'seller') {
-      let response = await axios.post(
-        'http://localhost:5000/api/auth/seller/signin',
-        payload
-      );
-      console.log(response);
-      if (response.status === 200) {
-        setCookie('seller-token', response.data.token);
-        response = await getLoggedInSeller();
-        console.log(response);
-        if (response.data.sellerProfile) {
-          history.push('/seller/home');
-        } else history.push('/seller/profile');
-      }
-    } else if (type === 'buyer') {
-      let response = await axios.post(
-        'http://localhost:5000/api/auth/buyer/signin',
-        payload
-      );
-
-      console.log(response);
-      if (response.status === 200) {
-        setCookie('buyer-token', response.data.token);
-        response = await getLoggedInBuyer();
-        console.log(response);
-        if (response.data.buyerProfile) {
-          history.push('/buyer/home');
-        } else history.push('/buyer/profile');
-      }
-    } else {
+    if (type === 'seller') 
+    {
+      //Dispatch action LOGIN_SELLER, pass google token 
+      loginSeller(res.tokenId)
+    } 
+    else if (type === 'buyer') 
+    {
+      //Dispatch action LOGIN_BUYER, pass google token 
+      loginBuyer(res.tokenId)
+    } 
+    else 
+    {
       console.log('Wrong user type');
     }
   }
 
   //function called if google authentication fails
-  function onFailure(res) {
+  function onFailure(res) 
+  {
     console.log('failure!');
   }
   return (
@@ -66,4 +51,10 @@ function LoginButton({ type, buttonText }) {
   );
 }
 
-export default LoginButton;
+const mapDispatchToProps = (dispatch) => {
+  return {
+      loginBuyer: (googleToken) => dispatch(loginBuyer(googleToken)),
+      loginSeller: (googleToken) => dispatch(loginSeller(googleToken))
+  }
+}
+export default connect(null, mapDispatchToProps)(LoginButton);

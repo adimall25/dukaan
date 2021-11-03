@@ -1,8 +1,8 @@
-import {REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, ACCOUNT_DELETED} from "../actions/types.js";
+import {LOGIN_BUYER, LOGIN_SELLER, BUYER_LOGIN_SUCCESS, SELLER_LOGIN_SUCCESS, BUYER_LOGIN_FAIL, SELLER_LOGIN_FAIL, BUYER_LOGOUT, BUYER_ACCOUNT_DELETED, SELLER_LOGOUT, SELLER_ACCOUNT_DELETED} from "../actions/types.js";
 
 const initialState = {
-    sellerToken:localStorage.getItem('seller-token'),
-    buyerToken : localStorage.getItem('buyer-token'),
+    sellerToken:null,
+    buyerToken : null,
     isBuyerAuthenticated: false,
     isSellerAuthenticated: false,
     loading: false,
@@ -16,28 +16,30 @@ export default function(state = initialState, action){
         case LOGIN_BUYER:
         case LOGIN_SELLER:
             return {...state, loading:true}
-        case BUYER_REGISTER_SUCCESS:
         case BUYER_LOGIN_SUCCESS:
             localStorage.setItem('buyer-token', action.payload.token);
-            return {...state, buyerToken : action.payload.token, loading:false}
+            return {...state, buyerToken : action.payload.token, loading:false, buyer: action.payload.buyer, isBuyerAuthenticated : true}
+        case SELLER_LOGIN_SUCCESS:
+            localStorage.setItem('seller-token', action.payload.token);
+            return {...state, sellerToken : action.payload.token, loading:false, seller: action.payload.seller, isSellerAuthenticated : true}
+        case BUYER_LOGIN_FAIL:
+            localStorage.removeItem('buyer-token');
+            return {...state, buyerToken:null, isBuyerAuthenticated: false, loading:false, buyer: null};
         
-        case REGISTER_FAIL:
-            localStorage.removeItem('token');
-            return {...state, token:null, isAuthenticated: false, loading:false};
-        
-        case BUYER_LOADED:
-            return {...state, isAuthenticated:true, loading:false, user: action.payload} 
-        case SELLER_LOADED:
-            return {...state, isAuthenticated: true, loading: false, seller: action.payload}
-        
-        case AUTH_ERROR:
-        case LOGIN_FAIL:
-            localStorage.removeItem('token');
-            return {...state, isAuthenticated:false, loading:false, user:null, token:null};
-        case LOGOUT:
-        case ACCOUNT_DELETED:
-            localStorage.removeItem('token');
-            return {...state, isAuthenticated:false, user:null, loading: false, token:null};
+        case SELLER_LOGIN_FAIL:
+            localStorage.removeItem('seller-token');
+            return {...state, sellerToken:null, isSellerAuthenticated: false, loading:false, sseller : null};
+
+        case BUYER_LOGOUT:
+        case BUYER_ACCOUNT_DELETED:
+            localStorage.removeItem('buyer-token');
+            return {...state, isBuyerAuthenticated:false, buyer:null, loading: false, buyerToken:null};
+
+        case SELLER_LOGOUT:
+            case SELLER_ACCOUNT_DELETED:
+                localStorage.removeItem('seller-token');
+                return {...state, isSellerAuthenticated:false, seller:null, loading: false, sellerToken:null};
+
         default:
             return {...state};
     }

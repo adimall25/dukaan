@@ -40,7 +40,7 @@ router.post('/seller/signin', gTokenVerifier, async (req, res) => {
     console.log('JWT generated');
 
     //send token to client
-    res.json({ token });
+    res.json({ token, seller });
   } catch (err) {
     console.log(err);
     res.json(505).json({ msg: 'Server Error' });
@@ -79,7 +79,7 @@ router.post('/buyer/signin', gTokenVerifier, async (req, res) => {
     console.log('JWT generated');
 
     //send token to client
-    res.json({ token });
+    res.json({ token, buyer });
   } catch (err) {
     console.log(err);
     res.json(505).json({ msg: 'Server Error' });
