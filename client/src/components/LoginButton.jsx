@@ -19,12 +19,12 @@ function LoginButton({ type, buttonText, loginBuyer, loginSeller })
     if (type === 'seller') 
     {
       //Dispatch action LOGIN_SELLER, pass google token 
-      loginSeller(res.tokenId)
+      loginSeller({googleToken : res.tokenId, history})
     } 
     else if (type === 'buyer') 
     {
       //Dispatch action LOGIN_BUYER, pass google token 
-      loginBuyer(res.tokenId)
+      loginBuyer({googleToken : res.tokenId, history})
     } 
     else 
     {
@@ -53,8 +53,8 @@ function LoginButton({ type, buttonText, loginBuyer, loginSeller })
 
 const mapDispatchToProps = (dispatch) => {
   return {
-      loginBuyer: (googleToken) => dispatch(loginBuyer(googleToken)),
-      loginSeller: (googleToken) => dispatch(loginSeller(googleToken))
+      loginBuyer: (obj) => dispatch(loginBuyer(obj)),
+      loginSeller: (obj) => dispatch(loginSeller(obj))
   }
 }
 export default connect(null, mapDispatchToProps)(LoginButton);

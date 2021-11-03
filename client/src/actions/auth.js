@@ -4,7 +4,7 @@ import setCookie from "../utils/cookies/setCookie.js";
 
 
 //login buyer
-export const loginBuyer = (googleToken) => {
+export const loginBuyer = ({googleToken, history}) => {
     return async (dispatch) => {
         try
         {
@@ -21,6 +21,8 @@ export const loginBuyer = (googleToken) => {
             setCookie('buyer-token', res.data.token);
 
             dispatch({type : BUYER_LOGIN_SUCCESS, payload : {token : res.data.token, buyer : res.data.buyer}})
+
+            history.push("/buyer/home")
             console.log(res);
         }
         catch(err)
@@ -33,7 +35,7 @@ export const loginBuyer = (googleToken) => {
 }
 
 //login seller
-export const loginSeller = (googleToken) => {
+export const loginSeller = ({googleToken, history}) => {
     return async (dispatch) => {
         try
         {
@@ -50,6 +52,8 @@ export const loginSeller = (googleToken) => {
             setCookie('seller-token', res.data.token);
 
             dispatch({type : SELLER_LOGIN_SUCCESS, payload : {token : res.data.token, seller : res.data.seller}})
+            history.push("/seller/home")
+
             console.log(res);
         }
         catch(err)

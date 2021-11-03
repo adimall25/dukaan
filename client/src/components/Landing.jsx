@@ -1,10 +1,13 @@
 import React, { Fragment } from 'react';
 import '../css/Landing.css';
 import LoginButton from './LoginButton';
+import {connect} from "react-redux";
+import Spinner from "./Spinner"
 
-function Landing() {
+function Landing({auth}) {
   return (
-    <Fragment>
+    auth.loading ? <Spinner /> : (
+      <Fragment>
       <div id="landing-wrapper">
         <section className="main">
           <div className="content">
@@ -32,7 +35,15 @@ function Landing() {
         </section>
       </div>
     </Fragment>
+    )
+    
   );
 }
 
-export default Landing;
+const mapStateToProps = (state) => {
+  return {
+    auth : state.auth
+  }
+}
+
+export default connect(mapStateToProps, null)(Landing);
