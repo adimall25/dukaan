@@ -6,16 +6,17 @@ function ProfileCard(props) {
   return (
     <div className="card-container">
       <header>
-        <img
+        <img 
           className="shopImage"
-          src="https://thumbs.dreamstime.com/z/shop-building-colorful-isolated-white-33822015.jpg"
+          src={props.imgLink}
           alt={props.sellerName}
         />
       </header>
-
+      <br/> 
       <h1 className="bold-text">
         {props.name} <span className="bold-text">{props.shopName}</span>
       </h1>
+      <br/>
     </div>
   );
 }

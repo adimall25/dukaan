@@ -25,6 +25,7 @@ function LoginButton({ type, buttonText, loginBuyer, loginSeller })
     {
       //Dispatch action LOGIN_BUYER, pass google token 
       loginBuyer({googleToken : res.tokenId, history})
+      
     } 
     else 
     {
