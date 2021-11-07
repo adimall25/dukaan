@@ -60,7 +60,7 @@ export const loginSeller = ({googleToken, history}) => {
         {
             console.log("YO");
             console.log(err);
-            dispatch({type : SELLER_LOGIN_FAIL, payload : {msg : err.response.data.msg}})
+            dispatch({type : SELLER_LOGIN_FAIL, payload : {msg : err}})
         }
        
     }

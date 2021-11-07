@@ -3,7 +3,9 @@ import '../../css/BuyerProfile.css';
 import { Link, useHistory } from 'react-router-dom';
 import { useState } from 'react';
 import { createBuyerProfile } from '../../service/api';
-function BuyerProfile() {
+import {connect} from 'react-redux'
+
+function BuyerProfile({profile}) {
   const history = useHistory();
   const buyer = {
     name: '',
@@ -28,6 +30,7 @@ function BuyerProfile() {
 
   return (
     <div>
+
       <div className="container rounded bg-white mt-5 mb-5">
         <div className="row">
           <div className="col-md-3 border-right">
@@ -125,4 +128,12 @@ function BuyerProfile() {
   );
 }
 
-export default BuyerProfile;
+const mapStateToProps = (state) => {
+  return {
+    profile : state.profile,
+    auth : state.auth
+  }
+}
+
+
+export default connect(mapStateToProps, null)(BuyerProfile);

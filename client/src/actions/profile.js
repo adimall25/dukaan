@@ -5,7 +5,6 @@ import {
     BUYER_PROFILE_LOADED, 
     BUYER_PROFILE_ERROR, 
     BUYER_PROFILE_NOT_FOUND,
-    SELLER_PROFILE_NOT_FOUND,
     CLEAR_BUYER_PROFILE, 
     UPDATE_BUYER_PROFILE,
     BUYER_PROFILE_UPDATED,
@@ -21,6 +20,7 @@ import {
     UPDATE_SELLER_PROFILE,
     SELLER_PROFILE_UPDATED, 
     GET_SELLER_PROFILES, 
+    SELLER_PROFILE_NOT_FOUND,
     SELLER_PROFILES_LOADED
 } from "./types.js";
 
@@ -63,6 +63,49 @@ export function getLoggedInBuyer()
             console.log(err)
             dispatch({
                 type : BUYER_PROFILE_ERROR,
+                payload: err
+            })
+        }
+        
+    }
+}
+
+export function getLoggedInSeller()
+{
+    return async (dispatch) => {
+        try
+        {
+            dispatch({
+                type:GET_SELLER_PROFILE
+            })
+            const res = await axios.get("http://localhost:5000/api/profile/seller/me", {
+                headers : {
+                    'x-auth-token' : getCookie("seller-token")
+                }
+            })
+            // console.log(res);
+            if(res.data.sellerProfile)
+            {
+                dispatch({
+                    type : SELLER_PROFILE_LOADED,
+                    payload : {
+                        sellerProfile : res.data.sellerProfile
+                    }
+                })
+            }
+            else
+            {
+                dispatch({
+                    type : SELLER_PROFILE_NOT_FOUND
+                })
+            }
+            
+        }
+        catch(err)
+        {
+            console.log(err)
+            dispatch({
+                type : SELLER_PROFILE_ERROR,
                 payload: err
             })
         }
