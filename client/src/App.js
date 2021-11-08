@@ -12,8 +12,12 @@ import SingleProductPage from './components/SingleProductPage';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Products from './components/Buyer/Products';
 
+import {Provider} from 'react-redux';
+import store from "./store.js";
+
 function App() {
   return (
+    <Provider store={store}>
     <Router>
       <Fragment>
         <Switch>
@@ -28,6 +32,7 @@ function App() {
         </Switch>
       </Fragment>
     </Router>
+</Provider>
   );
 }
 
