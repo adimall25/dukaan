@@ -4,6 +4,8 @@ import 'react-multi-carousel/lib/styles.css';
 import { products } from '../../constants/data.js';
 import { makeStyles } from '@mui/styles';
 import { Box, Typography, Button, Divider } from '@mui/material';
+import { Link } from 'react-router-dom';
+import SingleProductPage from '../SingleProductPage';
 const upStyles = makeStyles({
   image: {
     height: 150,
@@ -74,6 +76,11 @@ function Slide({ title }) {
         containerClass="carousel-container"
         itemClass="carousel-item-padding-40-px">
         {products.map((product) => (
+         
+          <Link to={'/buyer/spp/'+product.id}>
+
+          {/* <SingleProductPage product={product} /> */}
+          <div id={product.id}>
           <Box className={classes.wrapper} textAlign="center">
             <img className={classes.image} src={product.url} />
             <Typography
@@ -89,7 +96,12 @@ function Slide({ title }) {
               style={{ opacity: '.6', color: '#212121' }}>
               {product.tagline}
             </Typography>
-          </Box>
+          </Box> 
+          </div>
+          </Link>
+          
+
+         
         ))}
       </Carousel>
     </Box>
