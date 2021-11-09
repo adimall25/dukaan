@@ -16,7 +16,8 @@ const SingleProductPage = (props) => {
         <Navbar />
     <section class="section-content padding-y bg">
         <div class="container">
-    
+
+
         <article class="card">
             <div class="card-body">
                     <div class="row">
@@ -36,7 +37,9 @@ const SingleProductPage = (props) => {
                                         <p  class="stars-active"> 
                                             <i class="fa fa-star"></i> <i class="fa fa-star"></i> 
                                             <i class="fa fa-star"></i>  
-                                            
+
+
+
                                         </p>
                                         <p>
                                             <i class="fa fa-star"></i> <i class="fa fa-star"></i> 
@@ -48,9 +51,10 @@ const SingleProductPage = (props) => {
                                     <a href="#" class="btn-link  mr-3 text-muted"> <i class="fa fa-heart"></i> Save for later </a>
                                     <a href="#" class="btn-link text-muted"> <i class="fa fa-book-open"></i> Compare </a>
                                 </div> 
-        
+
                                 <hr />
-                    
+
+
                                 <div class="mb-3">
                                     <h6>{item.description}</h6>
                                     {/* <ul class="list-dots mb-0">
@@ -60,7 +64,8 @@ const SingleProductPage = (props) => {
                                         <p>Dark blue color</p>
                                     </ul> */}
                                 </div>
-                                
+
+
                                 <div class="form-group">
                                     <label class="text-muted">price</label>
                                     <div>
@@ -82,17 +87,17 @@ const SingleProductPage = (props) => {
                                         </label>	
                                     </div>						
                                 </div>
-        
+
                                 <div class="mb-3">
                                     <var class="price h4">${item.price.mrp}</var> <br />
                                     {/* <span class="monthly">$32.00 / monthly installment </span> */}
                                 </div> 
-        
+
                                 <div class="mb-4">
                                     <a href="#" class="btn btn-primary">Buy now</a><br />
                                     <a href="#" class="btn btn-primary">Add to cart</a>
                                 </div>
-                                
+
                             </article> 
                         </main>
                     </div> 
@@ -145,12 +150,12 @@ const SingleProductPage = (props) => {
         </article> */}
         </div>
 
-        
-    
+
+
     </section>
- 
-       
-     
+
+
+
     </div>
     );
   };

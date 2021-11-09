@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react';
-import {Redirect} from "react-router-dom"
+import React, {useEffect,} from 'react';
+import {Redirect, Link} from "react-router-dom"
 import Profiles from '../Profiles/Profiles';
 import Navbar from '../Navbar';
 import {connect} from "react-redux";
@@ -7,18 +7,20 @@ import { getLoggedInBuyer } from '../../actions/profile';
 import Spinner from "../Spinner"
 import '../../css/Landing.css';
 import { orange } from '@mui/material/colors';
-const BuyerHomePage = ({getLoggedInBuyer, profile}) => {
-  // useEffect(() => {
-  //   getLoggedInBuyer()
-  // }, [getLoggedInBuyer])
+import { Fragment } from 'react';
+const BuyerHomePage = ({getLoggedInBuyer, profile : {loading, buyerProfile}}) => {
+  useEffect(() => {
+    getLoggedInBuyer()
+  }, [getLoggedInBuyer])
 
   return (
-    profile.loading ? <Spinner /> : (
-      <div style={{backgroundColor: orange}}>
+    loading && buyerProfile === null ? <Spinner /> : 
+      buyerProfile !== null ? <Fragment><div>
       <Navbar />
-      <Profiles />
-    </div>
-    ) 
+      <Profiles /> 
+    </div></Fragment> : <Fragment><div>You have not created your profile. Click 
+    <Link to ="/buyer/profile"> here</Link> to create your profile</div></Fragment>
+    
     
   );
 };
