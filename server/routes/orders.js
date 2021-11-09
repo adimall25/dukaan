@@ -21,11 +21,15 @@ router.get('/buyer/me', buyerExtract, async (req, res) => {
     }
 });
 
+//ROUTE : /api/orders/seller/me
+//DESC : Get list of orders of logged in seller
 router.get('/seller/me', sellerExtract, async (req, res) => {
   try {
+    console.log(req.body);
     let orders = await Order.find({
       'seller.seller': req.body.seller._id,
     });
+    console.log(orders);
     res.json({ orders });
   } catch (err) {
     console.log(err.message);
@@ -34,9 +38,9 @@ router.get('/seller/me', sellerExtract, async (req, res) => {
 
 router.post('/create', async (req, res) => {
   try {
-    let order = req.body.order;
+    let order;
 
-    const { products, seller, buyer, status, totalPrice } = order;
+    const { products, seller, buyer, status, totalPrice } = req.body;
     order = new Order({
       products,
       seller,
@@ -45,9 +49,31 @@ router.post('/create', async (req, res) => {
       totalPrice,
     });
     await order.save();
+    res.json({order})
   } catch (err) {
     console.log(err.message);
   }
 });
+
+router.put("/update/:order_id", async (req, res) => {
+  try
+  {
+    const status = req.query.status
+    const order_id = req.params.order_id
+    
+    let order = await Order.findOne({_id : order_id})
+
+    order.status = status
+
+    await order.save()
+    
+    res.json({order})
+  }
+  catch(err)
+  {
+    console.log(err.message)
+    res.status(500).json({msg : 'Server Error'})
+  }
+})
 
 module.exports = router;

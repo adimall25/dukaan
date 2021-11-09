@@ -6,6 +6,8 @@ const jwt = require('jsonwebtoken'); //for creating new JWTs
 const gTokenVerifier = require('../middleware/gTokenVerifier'); //for verifying gtoken and fetching account data
 const Seller = require('../models/Seller'); //for Seller model
 const Buyer = require('../models/Buyer'); //for Buyer model
+const sellerExtract = require('../middleware/sellerExtract')
+const buyerExtract = require('../middleware/buyerExtract')
 
 const router = express.Router();
 
@@ -85,5 +87,17 @@ router.post('/buyer/signin', gTokenVerifier, async (req, res) => {
     res.json(505).json({ msg: 'Server Error' });
   }
 });
+
+//ROUTE : /api/auth/seller/me
+//DESC : Get currently logged in seller
+router.get("/seller/me", sellerExtract, (req, res) => {
+  res.json({seller : req.body.seller})
+})
+
+//ROUTE : /api/auth/buyer/me
+//DESC : Get currently logged in buyer
+router.get("/buyer/me", buyerExtract, (req, res) => {
+  res.json({buyer : req.body.buyer})
+})
 
 module.exports = router;

@@ -3,6 +3,7 @@ import Sidebar from '../Dashboard/Sidebar';
 import '../../css/Styles.css';
 import {connect} from "react-redux";
 import { getLoggedInSeller } from '../../actions/profile';
+import { loadSeller } from '../../actions/auth';
 import Spinner from '../Spinner';
 import {Link} from "react-router-dom"
 
@@ -24,13 +25,14 @@ function SellerHomePage({getLoggedInSeller, profile : {loading, sellerProfile}})
 
 const mapStateToProps = (state) => {
   return {
-    profile: state.profile
+    profile: state.profile,
+    
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getLoggedInSeller : () => dispatch(getLoggedInSeller())
+    getLoggedInSeller : () => dispatch(getLoggedInSeller()),
   }
 } 
 

@@ -1,32 +1,44 @@
-import React from 'react';
+import React, {Fragment, useEffect} from 'react';
 import ListItem from './ListItem';
-// import { makeStyles } from "@mui/styles";
+import {connect} from "react-redux";
+import { getSellerOrders } from '../../actions/order';
+import Spinner from "../Spinner"
 
-// const useStyles = makeStyles({
-//   success: {
-//     color: "green"
-//   },
-//   danger: {
-//     color: "red"
-//   }
-// });
-function OrderList() {
-  // const classes = useStyles();
+function OrderList({sellerOrders, getSellerOrders, loading, seller}) {
+
+  useEffect(() => {
+    getSellerOrders()
+  }, [getSellerOrders])
+
   return (
-    <div className="card">
-      <h5 className="card-title card-header">Orders</h5>
-      <ul className="list-group list-group-flush">
-        <ListItem info="Total Order: " value="323" />
-        <ListItem info="Pending Orders:" value="234" />
-        <div>
-          <ListItem info="Successful Orders: " value="233" />
-        </div>
-        <div>
-          <ListItem info="Cancelled Orders: " value="324" />
-        </div>
-      </ul>
-    </div>
+    loading === true && seller === null ? <Spinner /> : <Fragment>
+       <div className="card">
+        <h5 className="card-title card-header">Orders</h5>
+        <ul className="list-group list-group-flush">
+          <ListItem info="Total Order: " value={sellerOrders.length} />
+          <ListItem info="Pending Orders:" value={sellerOrders.filter(el => el.status === "PENDING").length} />
+          <div>
+            <ListItem info="Successful Orders: " value={sellerOrders.filter(el => el.status === "COMPLETED").length} />
+          </div>
+        </ul>
+      </div>
+    </Fragment>
+   
   );
 }
 
-export default OrderList;
+const mapStateToProps = (state) => {
+  return {
+    sellerOrders : state.order.orders,
+    loading : state.order.loading,
+    seller: state.auth.seller
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getSellerOrders : () => dispatch(getSellerOrders()) 
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(OrderList);
