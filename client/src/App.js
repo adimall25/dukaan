@@ -1,3 +1,4 @@
+
 import React, { Fragment} from 'react';
 import Landing from './components/Landing';
 import BuyerHomePage from './components/Home/BuyerHomePage';
@@ -9,8 +10,6 @@ import AddProduct from './components/Products/AddProduct';
 import { Route, Switch } from 'react-router-dom';
 import Products from './components/Buyer/Products';
 import SingleProductPage from './components/SingleProductPage';
-
-
 
 function App() {
   return (
@@ -26,6 +25,7 @@ function App() {
             <Route exact path="/buyer/spp/:product_id" component={SingleProductPage}/>
           </Switch>
         </Fragment>
+
   );
 }
 

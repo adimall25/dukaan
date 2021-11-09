@@ -80,6 +80,7 @@ function Slide({ title }) {
 
 {/* <SingleProductPage product={product} /> */}
 <div id={product.id}>
+
           <Box className={classes.wrapper} textAlign="center">
             <img className={classes.image} src={product.url} />
             <Typography
@@ -98,6 +99,7 @@ function Slide({ title }) {
           </Box>
           </div>
           </Link>
+
         ))}
       </Carousel>
     </Box>

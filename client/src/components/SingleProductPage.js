@@ -17,6 +17,7 @@ const SingleProductPage = (props) => {
     <section class="section-content padding-y bg">
         <div class="container">
 
+
         <article class="card">
             <div class="card-body">
                     <div class="row">
@@ -37,6 +38,8 @@ const SingleProductPage = (props) => {
                                             <i class="fa fa-star"></i> <i class="fa fa-star"></i> 
                                             <i class="fa fa-star"></i>  
 
+
+
                                         </p>
                                         <p>
                                             <i class="fa fa-star"></i> <i class="fa fa-star"></i> 
@@ -51,6 +54,7 @@ const SingleProductPage = (props) => {
 
                                 <hr />
 
+
                                 <div class="mb-3">
                                     <h6>{item.description}</h6>
                                     {/* <ul class="list-dots mb-0">
@@ -60,6 +64,7 @@ const SingleProductPage = (props) => {
                                         <p>Dark blue color</p>
                                     </ul> */}
                                 </div>
+
 
                                 <div class="form-group">
                                     <label class="text-muted">price</label>
