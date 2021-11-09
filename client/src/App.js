@@ -8,6 +8,7 @@ import './css/Styles.css';
 import AddProduct from './components/Products/AddProduct';
 import { Route, Switch } from 'react-router-dom';
 import Products from './components/Buyer/Products';
+import SingleProductPage from './components/SingleProductPage';
 
 
 
@@ -22,6 +23,7 @@ function App() {
             <Route exact path="/seller/profile" component={SellerProfile} />
             <Route exact path="/seller/products/add" component={AddProduct} />
             <Route exact path="/seller/home" component={SellerHomePage} />
+            <Route exact path="/buyer/spp/:product_id" component={SingleProductPage}/>
           </Switch>
         </Fragment>
   );

@@ -13,8 +13,8 @@ function Products() {
       <Slide />
       <Slide title="Suggested items" />
       <Slide title="Recommended for you " />
-      <Slide title="Discountts for you" />
-      <Slide title="Discountts for you" />
+      <Slide title="Discounts for you" />
+      <Slide title="Discounts for you" />
     </Fragment>
   );
 }
