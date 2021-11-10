@@ -8,7 +8,8 @@ const router = express.Router();
 router.post('/add', sellerExtract, async (req, res) => {
   try {
     //extract product data from request body
-    const { name, price, description, image, seller } = req.body;
+    const { name, price, description, image} = req.body.productData;
+    const seller = req.body.seller
 
     //check if product already exists
     let product = await Product.findOne({ name, seller });
