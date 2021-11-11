@@ -1,4 +1,4 @@
-import { GET_LOGGED_SELLER_PRODUCTS,LOGGED_SELLER_PRODUCTS_LOADED, LOGGED_SELLER_PRODUCTS_ERROR, ADD_PRODUCT, PRODUCT_ADDED, ADD_PRODUCT_ERROR, PRODUCT_LOADED_USING_ID, PRODUCT_ERROR_USING_ID, GET_PRODUCT_USING_ID, UPDATE_PRODUCT, PRODUCT_UPDATED, UPDATE_PRODUCT_ERROR, DELETE_PRODUCT, PRODUCT_DELETED, DELETE_PRODUCT_ERROR } from "./types"
+import { GET_LOGGED_SELLER_PRODUCTS,LOGGED_SELLER_PRODUCTS_LOADED, LOGGED_SELLER_PRODUCTS_ERROR, ADD_PRODUCT, PRODUCT_ADDED, ADD_PRODUCT_ERROR, PRODUCT_LOADED_USING_ID, PRODUCT_ERROR_USING_ID, GET_PRODUCT_USING_ID, UPDATE_PRODUCT, PRODUCT_UPDATED, UPDATE_PRODUCT_ERROR, DELETE_PRODUCT, PRODUCT_DELETED, DELETE_PRODUCT_ERROR, GET_ALL_SELLERS_PRODUCTS } from "./types"
 import axios from "axios"
 
 
@@ -164,3 +164,20 @@ export function deleteProductUsingId(product_id)
         
     }
 }
+
+// export function getProductsOfAllSellers()
+// {
+//     return async (dispatch) => {
+//         dispatch({
+//             type : GET_ALL_SELLERS_PRODUCTS
+//         })
+
+//         const res = await axios.get("http://localhost:5000/api/products/sellers/all", {
+//             headers : {
+//                 'x-auth-token' : localStorage.getItem('seller-token')
+//             }
+//         })
+
+        
+//     }
+// }

@@ -21,7 +21,8 @@ import {
     SELLER_PROFILE_UPDATED, 
     GET_SELLER_PROFILES, 
     SELLER_PROFILE_NOT_FOUND,
-    SELLER_PROFILES_LOADED
+    SELLER_PROFILES_LOADED,
+    SELLER_PROFILES_ERROR
 } from "./types.js";
 
 import axios from "axios";
@@ -110,5 +111,37 @@ export function getLoggedInSeller()
             })
         }
         
+    }
+}
+
+export function getSellerProfiles()
+{
+    return async (dispatch) => {
+        try
+        {
+            dispatch({
+                type : GET_SELLER_PROFILES
+            })
+
+            const res = await axios.get("http://localhost:5000/api/profile/seller/all", {
+                headers : {
+                    'x-auth-token' : localStorage.getItem("seller-token")
+                }
+            })
+
+            dispatch({
+                type : SELLER_PROFILES_LOADED,
+                payload : res.data.sellerProfileList
+            })
+
+        }
+        catch(err)
+        {
+            console.log(err);
+            dispatch({
+                type : SELLER_PROFILES_ERROR,
+                payload : err
+            })
+        }
     }
 }

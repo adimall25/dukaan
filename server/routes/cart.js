@@ -14,7 +14,7 @@ router.get("/me", buyerExtract, async (req, res) => {
     {
         const buyer_id = req.body.buyer._id;
 
-        const buyerProfile = await BuyerProfile.findOne({_id : buyer_id}).populate('cart');
+        const buyerProfile = await BuyerProfile.findOne({_id : buyer_id}).populate('cart.product');
 
         res.json({cart : buyerProfile.cart});
 
@@ -31,7 +31,7 @@ router.post("/:product_id", buyerExtract, async (req, res) => {
     {
         const buyer_id = req.body.buyer._id;
 
-        const buyerProfile = await BuyerProfile.findOne({_id : buyer_id});
+        const buyerProfile = await BuyerProfile.findOne({id : buyer_id});
 
         const product_id = req.params.product_id, cart = buyerProfile.cart;
 
@@ -43,14 +43,14 @@ router.post("/:product_id", buyerExtract, async (req, res) => {
         }
         else
         {
-            cart.push_back(product_id);
+            cart.push(product_id);
         }
 
         buyerProfile.cart = cart;
 
         await buyerProfile.save();
 
-        await buyerProfile.populate('cart');
+        await buyerProfile.populate('cart.product');
 
         res.json({cart : buyerProfile.cart})
     }
@@ -83,7 +83,7 @@ router.delete("/:product_id", buyerExtract, async (req, res) => {
 
         await buyerProfile.save();
 
-        await buyerProfile.populate('cart');
+        await buyerProfile.populate('cart.product');
 
         res.json({cart : buyerProfile.cart})
     }
@@ -113,3 +113,5 @@ router.delete("/empty", buyerExtract, async (req, res) => {
         res.status(505).json({msg : "Server Error"})
     }
 })
+
+module.exports = router;

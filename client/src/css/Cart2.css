@@ -105,7 +105,7 @@ body {
     color: #fff;
   }
   
-  img {
+  .product-image {
     width: 40px;
     height: 40px;
     border-radius: 4px;

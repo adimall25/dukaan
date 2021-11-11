@@ -36,7 +36,7 @@ function HeaderButton() {
         {' '}
         <Typography>More</Typography>
       </Link>
-      <Link to="/cart" className={classes.container}>
+      <Link to="/buyer/checkout" className={classes.container}>
         <Badge badgeContent={2} color="primary">
           <ShoppingCartIcon />
         </Badge>

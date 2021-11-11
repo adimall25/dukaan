@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment, useEffect} from 'react';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import { products } from '../../constants/data.js';
@@ -52,11 +52,12 @@ const responsive = {
     items: 1,
   },
 };
-function Slide({ title }) {
+function Slide({ title, sellerProfile }) {
   const classes = upStyles();
 
   return (
-    <Box className={classes.component}>
+    sellerProfile.products.length <= 0 ? <Fragment></Fragment> : <Fragment>
+      <Box className={classes.component}>
       <Box className={classes.deal}>
         <Typography className={classes.dealText3}>{title}</Typography>
       </Box>
@@ -75,18 +76,17 @@ function Slide({ title }) {
         dotListClass="custom-dot-list-style"
         containerClass="carousel-container"
         itemClass="carousel-item-padding-40-px">
-        {products.map((product) => (
-          <Link to={'/buyer/spp/'+product.id}>
+        {sellerProfile.products.map((product) => (
+          <Link to={'/buyer/spp/'+product._id}>
 
-{/* <SingleProductPage product={product} /> */}
-<div id={product.id}>
+          <div id={product._id}>
 
           <Box className={classes.wrapper} textAlign="center">
-            <img className={classes.image} src={product.url} />
+            <img className={classes.image} src={product.image} />
             <Typography
               className={classes.text}
               style={{ fontWeight: 600, color: '#212121' }}>
-              {product.title.shortTitle}
+              {product.name}
             </Typography>
             <Typography className={classes.text} style={{ color: 'green' }}>
               {product.discount}
@@ -94,7 +94,7 @@ function Slide({ title }) {
             <Typography
               className={classes.text}
               style={{ opacity: '.6', color: '#212121' }}>
-              {product.tagline}
+              {product.price}
             </Typography>
           </Box>
           </div>
@@ -103,6 +103,8 @@ function Slide({ title }) {
         ))}
       </Carousel>
     </Box>
+    </Fragment>
+    
   );
 }
 

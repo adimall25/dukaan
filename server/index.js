@@ -27,6 +27,8 @@ app.use('/api/products', require('./routes/products'));
 
 //APIs related to Orders
 app.use('/api/orders', require('./routes/orders'));
+
+app.use('/api/cart', require('./routes/cart'));
 //start listening
 app.listen(5000, () => {
   console.log('Server started listening on port 5000');

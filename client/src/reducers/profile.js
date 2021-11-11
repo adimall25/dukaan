@@ -21,7 +21,8 @@ import {
     UPDATE_SELLER_PROFILE,
     SELLER_PROFILE_UPDATED, 
     GET_SELLER_PROFILES, 
-    SELLER_PROFILES_LOADED
+    SELLER_PROFILES_LOADED,
+    SELLER_PROFILES_ERROR
 } from "../actions/types.js";
 
 const initialState = {
@@ -67,7 +68,8 @@ export default function(state = initialState, action){
         case SELLER_PROFILE_LOADED:
             return {...state, sellerProfile:payload.sellerProfile, loading:false};
         case SELLER_PROFILES_LOADED:
-            return {...state, sellerProfiles: payload.sellerProfiles, loading:false};
+            return {...state, sellerProfiles: payload, loading:false};
+        case SELLER_PROFILES_ERROR:
         case SELLER_PROFILE_ERROR:
         return {
             ...state,

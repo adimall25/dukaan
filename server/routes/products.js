@@ -2,6 +2,7 @@ const express = require('express');
 const sellerExtract = require('../middleware/sellerExtract'); //for extracting buyer from header(JWT)
 const SellerProfile = require('../models/SellerProfile'); //for BuyerProfile model
 const Product = require('../models/Product'); //for BuyerProfile model
+const buyerExtract = require("../middleware/buyerExtract");
 
 const router = express.Router();
 
@@ -57,8 +58,10 @@ router.delete(
       await Product.findOneAndDelete({ _id: product_id });
       console.log('Product deleted from database');
 
-      const seller_id = req.body.seller.id;
+      const seller_id = req.body.seller._id;
+      console.log(seller_id);
       const sellerProfile = await SellerProfile.findOne({ id: seller_id });
+      console.log(sellerProfile);
       sellerProfile.products.filter((el) => el._id != product_id);
       await sellerProfile.save();
       console.log('Product deleted from seller profile');
@@ -142,6 +145,19 @@ router.put('/product/:product_id', async (req, res) => {
   {
     console.log(err);
     res.status(505).json({msg : 'Server Error'})
+  }
+})
+
+router.get("/sellers/all", buyerExtract, async (req, res) => {
+  try
+  {
+    const sellerProfiles = await SellerProfile.find({}).populate('products');
+    res.json({allSellersProducts : sellerProfiles})
+  }
+  catch(err)
+  {
+    console.log(err);
+    res.status(505).json({msg : err});
   }
 })
 module.exports = router;

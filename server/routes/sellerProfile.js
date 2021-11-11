@@ -79,7 +79,7 @@ router.get('/me', sellerExtract, async (req, res) => {
 router.get('/all', async (req, res) => {
   try {
     //find all seller profiles
-    const sellerProfileList = await SellerProfile.find({});
+    const sellerProfileList = await SellerProfile.find({}).populate('products');
 
     console.log('Fetched all the profiles');
 

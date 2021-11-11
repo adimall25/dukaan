@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "../../css/Cart2.css";
 
 function Cart() {
   const productData = [
@@ -108,14 +107,14 @@ function Cart() {
         <div className="card">
           <div className="card-header bg-dark p-3">
             <div className="card-header-flex">
-              <h5 className="" style={{display : "block", width:"100%", color: "#fff"}}>
+              <h5 className="text-white m-0">
                 My Cart
                 {/* {products.length > 0 ? `(${products.length})` : ""} */}
                 {products.length > 0 ? (
                   <button
                     className="btn btn-danger mt-0 btn-sm"
                     onClick={() => emptycart()}
-                    style={{ float : "right" }}
+                    style={{ float: "right" }}
                   >
                     <i className="fa fa-trash-alt mr-2"></i>
                     <span> Empty Cart</span>
@@ -164,7 +163,7 @@ function Cart() {
                         <td>
                           <img
                             className="product-img"
-                            src="https://picsum.photos/150"
+                            src={image}
                             alt=""
                             style={{
                               height: "40px",
@@ -195,7 +194,7 @@ function Cart() {
                               type="button"
                               onClick={() => decreaseQuantity(index)}
                             >
-                              <i className="fa fa-minus" style={{fontSize : "large"}}>-</i>
+                              <i className="fa fa-minus"></i>
                             </button>
                             <input
                               type="text"
@@ -229,7 +228,7 @@ function Cart() {
                               type="button"
                               onClick={() => increaseQuantity(index)}
                             >
-                              <i className="fa fa-plus" style={{fontSize : "large"}}>+</i>
+                              <i className="fa fa-plus"></i>
                             </button>
                           </div>
                         </td>
@@ -239,20 +238,18 @@ function Cart() {
                         <td>
                           <button
                             style={{
-                            //   width: "40px",
-                            //   height: "40px",
+                              width: "40px",
+                              height: "40px",
                               border: "none",
                               borderRadius: "4px",
-                            //   backgroundColor: "orange",
-                            //   color: "red",
-                            //   fontSize: "11px",
-                            //   transition: "0.3s"
+                              backgroundColor: "orange",
+                              color: "red",
+                              fontSize: "11px",
+                              transition: "0.3s"
                             }}
                             onClick={() => removeFromCart(index)}
-                            className="btn btn-danger"
                           >
-                          X
-                            {/* <i className="fa fa-trash-alt" ></i> */}
+                            <i className="fa fa-trash-alt"></i>
                           </button>
                         </td>
                       </tr>
@@ -280,10 +277,10 @@ function Cart() {
           </div>
         </div>
         <div className="card-header-flex">
-          <h5 className="" style={{display : "block", width:"100%", color: "#fff"}}>
-                My Cart
-                {/* {products.length > 0 ? `(${products.length})` : ""} */}
-                {products.length > 0 ? (
+          <h5 className="text-white m-0">
+            My Cart
+            {/* {products.length > 0 ? `(${products.length})` : ""} */}
+            {products.length > 0 ? (
               <button
                 className="btn btn-success mt-0 btn-sm"
                 onClick={() => emptycart()}
@@ -294,7 +291,7 @@ function Cart() {
             ) : (
               ""
             )}
-            </h5>
+          </h5>
         </div>
       </div>
     </div>
