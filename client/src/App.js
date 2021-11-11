@@ -10,6 +10,7 @@ import AddProduct from './components/Products/AddProduct';
 import { Route, Switch } from 'react-router-dom';
 import Products from './components/Buyer/Products';
 import SingleProductPage from './components/SingleProductPage';
+import UpdateProduct from './components/Products/UpdateProduct';
 
 function App() {
   return (
@@ -23,6 +24,8 @@ function App() {
             <Route exact path="/seller/products/add" component={AddProduct} />
             <Route exact path="/seller/home" component={SellerHomePage} />
             <Route exact path="/buyer/spp/:product_id" component={SingleProductPage}/>
+            <Route exact path="/seller/products/:product_id" component={UpdateProduct}/>
+
           </Switch>
         </Fragment>
 

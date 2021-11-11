@@ -19,15 +19,20 @@ function ProductList({getLoggedInSellerProducts, product}) {
             <th scope="col">#</th>
             <th scope="col">Item</th>
             <th scope="col">Price</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+
           </tr>
         </thead>
         <tbody>
-          {product.products.map((item) => {
+          {product.products.map((item, index) => {
             return (
               <tr key={item.id}>
-                <th scope="row">1</th>
+                <th scope="row">{index + 1}</th>
                 <td>{item.name}</td>
                 <td>{item.price}</td>
+                <td><Link to = {`/seller/products/${item._id}`}><button className="btn btn-primary">View</button></Link></td>
+                <td><button className="btn btn-danger">Delete</button></td>
               </tr>
             );
           })}

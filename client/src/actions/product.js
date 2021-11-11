@@ -1,4 +1,4 @@
-import { GET_LOGGED_SELLER_PRODUCTS,LOGGED_SELLER_PRODUCTS_LOADED, LOGGED_SELLER_PRODUCTS_ERROR, ADD_PRODUCT, PRODUCT_ADDED, ADD_PRODUCT_ERROR  } from "./types"
+import { GET_LOGGED_SELLER_PRODUCTS,LOGGED_SELLER_PRODUCTS_LOADED, LOGGED_SELLER_PRODUCTS_ERROR, ADD_PRODUCT, PRODUCT_ADDED, ADD_PRODUCT_ERROR, PRODUCT_LOADED_USING_ID, PRODUCT_ERROR_USING_ID, GET_PRODUCT_USING_ID, UPDATE_PRODUCT, PRODUCT_UPDATED, UPDATE_PRODUCT_ERROR  } from "./types"
 import axios from "axios"
 
 
@@ -69,5 +69,66 @@ export function addProduct({productData, history})
             })
         }
         
+    }
+}
+
+export function getProductUsingId(product_id)
+{
+    return async (dispatch) => {
+        try
+        {
+            dispatch({
+                type : GET_PRODUCT_USING_ID
+            })
+
+            const res = await axios.get(`http://localhost:5000/api/products/product/${product_id}`)
+
+            dispatch({
+                type : PRODUCT_LOADED_USING_ID,
+                payload: res.data.product
+            })
+        }
+        catch(err)
+        {
+            console.log(err)
+            dispatch({
+                type : PRODUCT_ERROR_USING_ID,
+                payload: err
+            })
+        }
+    }
+}
+
+export function updateProductUsingId({productData, history})
+{
+    return async (dispatch) => {
+        try
+        {
+            dispatch({
+                type : UPDATE_PRODUCT
+            })
+    
+            const res = await axios.put(`http://localhost:5000/api/products/product/${productData._id}`, {
+                productData
+            });
+    
+            dispatch({
+                type:PRODUCT_UPDATED,
+                payload:res.data.product
+            })
+
+            history.push('/seller/home');
+
+        }
+        catch(err)
+        {
+            console.log(err);
+            dispatch({
+                type : UPDATE_PRODUCT_ERROR,
+                payload : err
+            })
+        }
+        
+
     }
 }

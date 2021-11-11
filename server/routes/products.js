@@ -104,6 +104,7 @@ router.get('/me', sellerExtract, async (req, res) => {
   }
 });
 
+//
 router.get('/product/:product_id', async (req, res) => {
   try {
     let product_id = req.params.product_id;
@@ -117,4 +118,30 @@ router.get('/product/:product_id', async (req, res) => {
     res.status(505).json({ msg: 'Server Error' });
   }
 });
+
+router.put('/product/:product_id', async (req, res) => {
+  try
+  {
+    let product_id = req.params.product_id;
+
+    const product = await Product.findOne({_id : product_id});
+    
+    const {name, price, description, image} = req.body.productData;
+
+    name ? product.name = name : null;
+    price ? product.price = price : null;
+    description ? product.description = description : null;
+    image ? product.image = image : null;
+
+    await product.save();
+
+    res.json({product});
+
+  }
+  catch(err)
+  {
+    console.log(err);
+    res.status(505).json({msg : 'Server Error'})
+  }
+})
 module.exports = router;
