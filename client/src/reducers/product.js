@@ -1,4 +1,4 @@
-import { GET_LOGGED_SELLER_PRODUCTS, LOGGED_SELLER_PRODUCTS_ERROR, LOGGED_SELLER_PRODUCTS_LOADED, ADD_PRODUCT, ADD_PRODUCT_ERROR, PRODUCT_ADDED, GET_PRODUCT_USING_ID, PRODUCT_LOADED_USING_ID, PRODUCT_ERROR_USING_ID, UPDATE_PRODUCT } from "../actions/types";
+import { GET_LOGGED_SELLER_PRODUCTS, LOGGED_SELLER_PRODUCTS_ERROR, LOGGED_SELLER_PRODUCTS_LOADED, ADD_PRODUCT, ADD_PRODUCT_ERROR, PRODUCT_ADDED, GET_PRODUCT_USING_ID, PRODUCT_LOADED_USING_ID, PRODUCT_ERROR_USING_ID, UPDATE_PRODUCT, DELETE_PRODUCT, PRODUCT_DELETED, DELETE_PRODUCT_ERROR } from "../actions/types";
 
 const initialState = {
     products : [],
@@ -17,6 +17,7 @@ export default function(state = initialState, action)
         case GET_LOGGED_SELLER_PRODUCTS:
         case GET_PRODUCT_USING_ID:
         case UPDATE_PRODUCT:
+        case DELETE_PRODUCT:
             return {...state, loading: true}
         
         case LOGGED_SELLER_PRODUCTS_LOADED:
@@ -28,10 +29,18 @@ export default function(state = initialState, action)
             }
         case PRODUCT_LOADED_USING_ID:
             return {...state, product : payload, loading:false}
+        case PRODUCT_DELETED:
+            return {
+                ...state,
+                product : null,
+                products : state.products.filter(item => item._id !== payload.product_id),
+                loading:false,
+            }
 
         case LOGGED_SELLER_PRODUCTS_ERROR:
         case ADD_PRODUCT_ERROR:
         case PRODUCT_ERROR_USING_ID:
+        case DELETE_PRODUCT_ERROR:
             return {...state, loading:false, error: payload}
 
         default:

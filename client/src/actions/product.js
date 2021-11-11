@@ -1,4 +1,4 @@
-import { GET_LOGGED_SELLER_PRODUCTS,LOGGED_SELLER_PRODUCTS_LOADED, LOGGED_SELLER_PRODUCTS_ERROR, ADD_PRODUCT, PRODUCT_ADDED, ADD_PRODUCT_ERROR, PRODUCT_LOADED_USING_ID, PRODUCT_ERROR_USING_ID, GET_PRODUCT_USING_ID, UPDATE_PRODUCT, PRODUCT_UPDATED, UPDATE_PRODUCT_ERROR  } from "./types"
+import { GET_LOGGED_SELLER_PRODUCTS,LOGGED_SELLER_PRODUCTS_LOADED, LOGGED_SELLER_PRODUCTS_ERROR, ADD_PRODUCT, PRODUCT_ADDED, ADD_PRODUCT_ERROR, PRODUCT_LOADED_USING_ID, PRODUCT_ERROR_USING_ID, GET_PRODUCT_USING_ID, UPDATE_PRODUCT, PRODUCT_UPDATED, UPDATE_PRODUCT_ERROR, DELETE_PRODUCT, PRODUCT_DELETED, DELETE_PRODUCT_ERROR } from "./types"
 import axios from "axios"
 
 
@@ -130,5 +130,37 @@ export function updateProductUsingId({productData, history})
         }
         
 
+    }
+}
+
+export function deleteProductUsingId(product_id)
+{
+    return async (dispatch) => {
+        try
+        {
+            dispatch({
+                type : DELETE_PRODUCT
+            })
+    
+            const res = await axios.delete(`http://localhost:5000/api/products/product/${product_id}`, {
+                headers : {
+                    'x-auth-token' : localStorage.getItem('seller-token')
+                }
+            });
+    
+            dispatch({
+                type : PRODUCT_DELETED,
+                payload : {product_id}
+            })
+        }
+        catch(err)
+        {
+            console.log(err);
+            dispatch({
+                type : DELETE_PRODUCT_ERROR,
+                payload : err
+            })
+        }
+        
     }
 }

@@ -49,7 +49,7 @@ router.post('/add', sellerExtract, async (req, res) => {
 });
 
 router.delete(
-  '/delete/product/:product_id',
+  '/product/:product_id',
   sellerExtract,
   async (req, res) => {
     try {
@@ -59,7 +59,7 @@ router.delete(
 
       const seller_id = req.body.seller.id;
       const sellerProfile = await SellerProfile.findOne({ id: seller_id });
-      sellerProfile.products.filter((el) => el != product_id);
+      sellerProfile.products.filter((el) => el._id != product_id);
       await sellerProfile.save();
       console.log('Product deleted from seller profile');
       res.json({sellerProfile});

@@ -1,10 +1,10 @@
 import React, {Fragment, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import {connect } from "react-redux"
-import { getLoggedInSellerProducts } from '../../actions/product';
+import { getLoggedInSellerProducts, deleteProductUsingId } from '../../actions/product';
 import Spinner from '../Spinner';
 
-function ProductList({getLoggedInSellerProducts, product}) {
+function ProductList({getLoggedInSellerProducts, product, deleteProductUsingId}) {
   useEffect(() => {
     getLoggedInSellerProducts();
   }, [getLoggedInSellerProducts])
@@ -32,7 +32,7 @@ function ProductList({getLoggedInSellerProducts, product}) {
                 <td>{item.name}</td>
                 <td>{item.price}</td>
                 <td><Link to = {`/seller/products/${item._id}`}><button className="btn btn-primary">View</button></Link></td>
-                <td><button className="btn btn-danger">Delete</button></td>
+                <td><button className="btn btn-danger" onClick={() => {deleteProductUsingId(item._id)}}>Delete</button></td>
               </tr>
             );
           })}
@@ -57,7 +57,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getLoggedInSellerProducts : () => dispatch(getLoggedInSellerProducts())
+    getLoggedInSellerProducts : () => dispatch(getLoggedInSellerProducts()),
+    deleteProductUsingId : (product_id) => dispatch(deleteProductUsingId(product_id))
   }
 }
 
