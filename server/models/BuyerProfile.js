@@ -31,6 +31,18 @@ const buyerProfileSchema = mongoose.Schema({
         required : true
     },
 
+    cart : [
+        {
+            product : {
+                type : mongoose.Schema.Types.ObjectId,
+                ref : "Product"
+            },
+
+            quantity : Number
+            
+        }
+    ],
+
     orders : [
         {
             type : mongoose.Schema.Types.ObjectId,

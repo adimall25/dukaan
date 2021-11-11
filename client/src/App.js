@@ -11,6 +11,8 @@ import { Route, Switch } from 'react-router-dom';
 import Products from './components/Buyer/Products';
 import SingleProductPage from './components/SingleProductPage';
 import UpdateProduct from './components/Products/UpdateProduct';
+import Checkout from './components/Checkout/Checkout';
+import Cart2 from './components/Cart/Cart2';
 
 function App() {
   return (
@@ -25,6 +27,7 @@ function App() {
             <Route exact path="/seller/home" component={SellerHomePage} />
             <Route exact path="/buyer/spp/:product_id" component={SingleProductPage}/>
             <Route exact path="/seller/products/:product_id" component={UpdateProduct}/>
+            <Route exact path="/buyer/checkout" component={Cart2}/>
 
           </Switch>
         </Fragment>
